@@ -26,6 +26,7 @@ export class ToolbarComponent {
       closable: true,
       closeOnEscape: true,
       dismissableMask: true,
+      maskStyleClass: "dialog-mask-blur",
       modal: true,
     });
 
