@@ -10,20 +10,20 @@ import { ToastModule } from 'primeng/toast';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InvoiceService } from '../../../../core/services/invoice.service';
 import { InvoicePayload } from '../../../../core/models/invoice.model';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 
 @Component({
   selector: 'app-invoice-form',
-  imports: [
-    ToastModule,
+  imports: [    
     InputTextModule,
     InputNumberModule,
     DatePickerModule,
     ButtonModule,
     ReactiveFormsModule],
   templateUrl: './invoice-form.html',
-  styleUrl: './invoice-form.css',
-  providers: [MessageService]
+  styleUrl: './invoice-form.css'
+  
 })
 export class InvoiceForm {
   @ViewChild('fileInput') fileInput?: ElementRef<HTMLInputElement>;
@@ -31,6 +31,7 @@ export class InvoiceForm {
   private readonly fb = inject(FormBuilder);
   private readonly invoiceService = inject(InvoiceService);
   private readonly messageService = inject(MessageService);
+  private readonly dialogRef = inject(DynamicDialogRef);
 
   selectedFile: File | null = null;
 
@@ -67,7 +68,7 @@ export class InvoiceForm {
     };
 
     this.invoiceService.create(payload).subscribe({
-      next: () => {
+      next: (createdInvoice) => {
         this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Nota fiscal salva.' });
         this.invoiceForm.reset({
           description: '',
@@ -76,10 +77,16 @@ export class InvoiceForm {
         });
 
         this.selectedFile = null;
-        this.selectedFile = null;
         if (this.fileInput?.nativeElement) {
           this.fileInput.nativeElement.value = '';
         }
+
+        this.dialogRef.close({
+          status: 'saved',
+          data: createdInvoice
+
+        });
+
       },
       error: (e) => this.messageService.add({ severity: 'error', summary: 'Erro', detail: e.message || 'Falha na comunicação com a API.' })
     });
