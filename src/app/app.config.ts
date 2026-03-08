@@ -1,6 +1,8 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
+import { LOCALE_ID } from '@angular/core';
+
 import { routes } from './app.routes';
 
 import { providePrimeNG } from 'primeng/config';
@@ -16,7 +18,8 @@ export const appConfig: ApplicationConfig = {
       theme: {
         preset: Aura
       }
-    })
+    }),
+    { provide: LOCALE_ID, useValue: 'pt-BR' }
 
   ]
 };

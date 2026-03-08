@@ -6,6 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InvoiceForm } from '../../../../features/invoices/components/invoice-form/invoice-form';
 import { take } from 'rxjs';
+import { InvoiceEventsService } from '../../../../core/services/invoice-events.service';
 
 
 @Component({
@@ -18,6 +19,7 @@ import { take } from 'rxjs';
 export class ToolbarComponent {
 
   private readonly dialogService = inject(DialogService);
+  private readonly invoiceEventsService = inject(InvoiceEventsService);
   private dialogRef?: DynamicDialogRef | null;
 
   new(): void {    
@@ -35,7 +37,7 @@ export class ToolbarComponent {
 
       if (result?.status === 'saved') {
         // Atualizar lista
-        
+        this.invoiceEventsService.emitRefreshInvoices();
       }
     });
   }

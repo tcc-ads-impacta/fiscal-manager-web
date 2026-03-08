@@ -1,0 +1,48 @@
+<div class="card table">
+
+    @if (((invoicesList$ | async)?.length ?? 0) === 0) {
+    <div class="no-data">
+
+        <i class="pi pi-inbox text-4xl text-gray-400 mb-4"></i>
+        <span class="text-gray-500">Nenhuma nota fiscal encontrada.</span>
+        <span class="text-gray-200">Acesse o menu acima para registrar uma nova entrada.</span>
+        <img src="assets/help/help-cadastrar.gif" alt="Sem notas fiscais" class="help-gif"/>
+    </div>
+    }
+    @else {
+    <p-table [value]="(invoicesList$ | async) ?? []" [tableStyle]="{ 'min-width': '60rem' }">
+        <ng-template #caption>
+            <div class="flex items-center justify-between">
+                <span class="text-xl font-bold">Notas Fiscais</span>
+                <!-- <p-button icon="pi pi-refresh" rounded raised /> -->
+            </div>
+        </ng-template>
+        <ng-template #header>
+            <tr>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Data vencimento</th>
+                <th>Status</th>
+                <th>Restante (dias)</th>
+                <th>Arquivo</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-invoice>
+            <tr>
+                <td>{{ invoice.description }}</td>
+                <td>{{ invoice.amount | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</td>
+                <td>{{ invoice.date | date: 'dd/MM/yyyy HH:mm'}}</td>
+                <td><p-tag [value]="invoice.status" [severity]="invoice.severity" /></td>
+                <td>{{ invoice.daysUntilDue }}</td>
+                <td><a href="{{ 'http://localhost:5157' + invoice.publicUrl }}" target="_blank">Download</a></td>
+            </tr>
+        </ng-template>
+        <ng-template #footer>
+            <tr>
+                <td colspan="6">Total {{ ((invoicesList$ | async) ?? []).length }} notas.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    }
+
+</div>

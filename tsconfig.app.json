@@ -8,7 +8,7 @@
   },
   "include": [
     "src/**/*.ts"
-  ],
+, "src/app/core/services/invoice-events.servicets"  ],
   "exclude": [
     "src/**/*.spec.ts"
   ]

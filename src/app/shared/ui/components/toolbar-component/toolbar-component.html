@@ -4,13 +4,15 @@
             <div class="flex items-center gap-2">
                 <img src="assets/logo/invoice-logo.png" alt="Logo" style="height: 38px;">
                 <p-button label="Cadastrar" text plain (click)="new()" />
-                <p-button label="Buscar" text plain />
-                <p-button label="Outros" text plain />
+                <!-- <p-button label="Buscar" text plain />
+                <p-button label="Outros" text plain /> -->
             </div>
         </ng-template>
         <ng-template #end>
             <div class="flex items-center gap-2">
-                <p-button label="Share" severity="contrast" size="small" />                
+                <a href="https://github.com/tcc-ads-impacta" target="_blank" rel="noopener noreferrer">
+                    <p-button label="Share" severity="contrast" size="small" />
+                </a>                
             </div>
         </ng-template>
     </p-toolbar>
