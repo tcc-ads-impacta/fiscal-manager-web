@@ -24,7 +24,7 @@
                 <th>Data vencimento</th>
                 <th>Status</th>
                 <th>Restante (dias)</th>
-                <th>Arquivo</th>
+                <th></th>                
             </tr>
         </ng-template>
         <ng-template #body let-invoice>
@@ -34,12 +34,18 @@
                 <td>{{ invoice.date | date: 'dd/MM/yyyy HH:mm'}}</td>
                 <td><p-tag [value]="invoice.status" [severity]="invoice.severity" /></td>
                 <td>{{ invoice.daysUntilDue }}</td>
-                <td><a href="{{ 'http://localhost:5157' + invoice.publicUrl }}" target="_blank">Download</a></td>
+                <td class="actions">
+                    <a href="{{ 'http://localhost:5157' + invoice.publicUrl }}" target="_blank" title="Download">
+                        <p-button severity="secondary" size="large" icon="pi pi-download" />
+                    </a>
+
+                    <p-button severity="danger" size="large" icon="pi pi-trash" (click)="delete(invoice)" title="Excluir nota"/>
+                </td>
             </tr>
         </ng-template>
         <ng-template #footer>
             <tr>
-                <td colspan="6">Total {{ ((invoicesList$ | async) ?? []).length }} notas.</td>
+                <td colspan="7">Total {{ ((invoicesList$ | async) ?? []).length }} notas.</td>
             </tr>
         </ng-template>
     </p-table>

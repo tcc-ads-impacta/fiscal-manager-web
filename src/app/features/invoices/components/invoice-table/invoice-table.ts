@@ -35,4 +35,8 @@ export class InvoiceTable {
       });
   }
 
+  delete(invoice: InvoiceItemDto) {
+    alert("vai deletar")
+  }
+
 }
