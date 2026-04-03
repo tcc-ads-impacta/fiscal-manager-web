@@ -1,6 +1,7 @@
 <div class="card table">
+    @let invoices = invoicesList$ | async;
 
-    @if (((invoicesList$ | async)?.length ?? 0) === 0) {
+    @if ((invoices?.length ?? 0) === 0) {
     <div class="no-data">
 
         <i class="pi pi-inbox text-4xl text-gray-400 mb-4"></i>
@@ -10,7 +11,7 @@
     </div>
     }
     @else {
-    <p-table [value]="(invoicesList$ | async) ?? []" [tableStyle]="{ 'min-width': '60rem' }">
+    <p-table [value]="invoices ?? []" [tableStyle]="{ 'min-width': '60rem' }">
         <ng-template #caption>
             <div class="flex items-center justify-between">
                 <span class="text-xl font-bold">Notas Fiscais</span>
@@ -45,7 +46,7 @@
         </ng-template>
         <ng-template #footer>
             <tr>
-                <td colspan="7">Total {{ ((invoicesList$ | async) ?? []).length }} notas.</td>
+                <td colspan="7">Total {{ invoices?.length ?? 0 }} notas.</td>
             </tr>
         </ng-template>
     </p-table>
