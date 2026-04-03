@@ -28,7 +28,7 @@
         </div>
 
         <div class="flex justify-content-end mt-3">
-          <p-button label="Salvar" icon="pi pi-check" type="submit" [disabled]="invoiceForm.invalid || !selectedFile"></p-button>
+          <p-button label="Salvar" icon="pi pi-check" type="submit" [disabled]="invoiceForm.invalid || (!isEditMode && !selectedFile)"></p-button>
         </div>
 
       </form>

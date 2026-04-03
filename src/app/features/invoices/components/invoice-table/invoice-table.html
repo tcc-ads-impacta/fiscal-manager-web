@@ -40,7 +40,9 @@
                         <p-button severity="secondary" size="large" icon="pi pi-download" />
                     </a>
 
-                    <p-button severity="danger" size="large" icon="pi pi-trash" (click)="delete(invoice)" title="Excluir nota"/>
+                    <p-button severity="warn" size="large" icon="pi pi-pencil" (click)="edit(invoice)" title="Editar"/>
+                    <p-button severity="danger" size="large" icon="pi pi-trash" (click)="delete(invoice)" title="Excluir"/>
+
                 </td>
             </tr>
         </ng-template>
