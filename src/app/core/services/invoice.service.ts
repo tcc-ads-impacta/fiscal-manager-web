@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { InvoiceItemDto, InvoicePayload } from '../models/invoice.model';
+import { text } from '@primeuix/themes/aura/inlinemessage';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +35,12 @@ export class InvoiceService {
 
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
+
+  searchByDescription(description: string): Observable<InvoiceItemDto[]> {
+    return this.http.get<InvoiceItemDto[]>(`${this.baseUrl}/search`, {
+      params: { text: description }
+    });
   }
 
   private buildFormData(payload: InvoicePayload): FormData {

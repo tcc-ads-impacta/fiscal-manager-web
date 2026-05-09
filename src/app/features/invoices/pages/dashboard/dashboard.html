@@ -1,4 +1,4 @@
 <div style="display: flex; flex-direction: column;">
-    <app-toolbar-component/>
+    <app-toolbar-component (searchChange)="onSearch($event)"/>
     <app-invoice-table/>
 </div>

@@ -32,4 +32,11 @@ export class Dashboard {
       this.invoiceEventsService.emitUpdateInvoices(invoices);
     });
   }
+
+  onSearch(value: string): void {
+    this.invoiceService.searchByDescription(value).subscribe(invoices => {
+      console.log('Search results:', invoices);
+      this.invoiceEventsService.emitUpdateInvoices(invoices);
+    });
+  }
 }

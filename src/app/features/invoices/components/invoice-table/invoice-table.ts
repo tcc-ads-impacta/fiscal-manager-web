@@ -9,7 +9,7 @@ import { InvoiceService } from '../../../../core/services/invoice.service';
 import { TagModule } from 'primeng/tag';
 import { CurrencyPipe } from '@angular/common';
 import { DatePipe } from '@angular/common'; 
-import { startWith, switchMap, take } from 'rxjs';
+import { merge, startWith, switchMap, take } from 'rxjs';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InvoiceForm } from '../invoice-form/invoice-form';
 
@@ -28,10 +28,18 @@ export class InvoiceTable {
   private dialogRef?: DynamicDialogRef | null;
   private readonly dialogService = inject(DialogService);
 
-  invoicesList$ = this.invoiceEventsService.refreshInvoices$.pipe(
+  invoicesList$ = merge(
+  this.invoiceEventsService.refreshInvoices$.pipe(
     startWith(void 0),
     switchMap(() => this.invoiceService.getAll())
-  );
+  ),
+  this.invoiceEventsService.updateInvoices$
+);
+
+  // invoicesList$ = this.invoiceEventsService.refreshInvoices$.pipe(
+  //   startWith(void 0),
+  //   switchMap(() => this.invoiceService.getAll())
+  // );
   
   delete(invoice: InvoiceItemDto) {
     this.invoiceService.delete(invoice.id).subscribe(() => {
